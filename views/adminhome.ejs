@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Page</title>
+  <link rel="stylesheet" href="../styles/admin.css">
+</head>
+<body>
+  <div class="admin-container">
+    <h2>Welcome Admin!</h2>
+    <div class="admin-menu">
+      <button onclick="viewUsers()"><a href="/viewusers">View Users</a></button>
+      <button onclick="viewProducts()"><a href="/addproduct">Add product</a></button>
+      <a href="/logout">Logout</a>
+
+    </div>
+    <div class="admin-content" id="adminContent">
+    </div>
+  </div>
+  
+
+
+  <!-- Assuming your admin-content div looks like this -->
+<div class="admin-content" id="adminContent">
+  <!-- Product details will be inserted here dynamically -->
+  <% pd.forEach(function(product) { %>
+    <div class="product-container">
+      <h3><%= product.name %></h3>
+      <p><%= product.description %></p>
+      <p>Price: $<%= product.price %></p>
+      <img src="<%= product.path %>" alt="<%= product.name %>">
+      <div class="product-actions">
+        <div style="display: flex;">
+          <button ><a href="/update/<%= product._id %>">Update</a></button>
+          <form  method="post" action="/deleteProduct/<%= product._id %>">
+            <button style="margin-left: 10px;">Delete</button>
+          </form>
+        </div>
+        
+       
+      </div>
+    </div>
+  <% }); %>
+</div>
+
+  
+</body>
+</html>

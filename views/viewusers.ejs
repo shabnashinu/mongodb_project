@@ -1,0 +1,22 @@
+<!-- Assuming your viewusers.ejs file looks like this -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Users</title>
+  <link rel="stylesheet" href="../styles/viewusers.css">
+</head>
+<body>
+  <div class="user-list">
+    <h2>User List</h2>
+    <ul>
+      <% data.forEach(function(user) { %>
+        <li>
+          <strong>Email:</strong> <%= user.email %>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up Page</title>
+  <link rel="stylesheet" href="styles/signup.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up</h2>
+    <form id="signupForm" action="/signup" method="post" onsubmit="return validate()">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <p style="display: none ;color: red;" id="show">password must contain lowercase , <br> uppercase
+        ,number and a special character</p>
+    <br><br>
+      <label for="confirmPassword">Confirm Password:</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" required>
+      <p style="display: none; color: red;" id="showconfirm">incorrect password</p>
+    
+    <button type="submit">SignUp</button>
+    <p>Already have an account? <a href="/login">Login</a></p>
+    </form>
+  </div>
+
+</body>
+<script src="validation/frontendsignupvalidation.js"></script>
+</html>
