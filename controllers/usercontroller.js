@@ -7,7 +7,16 @@ const { default: mongoose } = require('mongoose');
 
 //signup
 const signup = (req,res)=>{
-    res.render('signuppage')
+    if(!req.session.userprofile){
+        res.render('signuppage')
+    }
+    else if(!req.session.isAdmin){
+        res.redirect('/userhomepage')
+    }
+    else{
+        res.redirect('/adminhome')
+    }
+   
 }
 
 //login
@@ -16,16 +25,19 @@ const loginpage = (req,res)=>{
 }
 
 //productpage
-const productpage = (req,res)=>{
-    res.render('productpage')
+const productpage = async(req,res)=>{
+    
+    const pd = await product.find({});
+
+    res.render('productpage',{pd})
 }
 
 //userprofile
 const userprofile = async(req,res)=>{
-    const user=await User.findOne({_id:req.session.user});
+    const user=await User.findOne({_id:req.session.userprofile});
     console.log("--------------------user_______________");
     console.log(user);
-    const id = user._id
+    const id = user._id;
     const profile = await User.aggregate([
         {$match:{_id:new mongoose.Types.ObjectId(id)}},
         {
@@ -40,7 +52,7 @@ const userprofile = async(req,res)=>{
 
 
     ])
-
+    console.log(profile);
     res.render('profile',{profile})
 };
 
@@ -52,7 +64,7 @@ const userprofile = async(req,res)=>{
 
 //showprofile
 const showprofile = async(req, res) => {
-    const user=await User.findOne({_id:req.session.user});
+    const user=await User.findOne({_id:req.session.userprofile});
     console.log("--------------------user_______________");
     console.log(user);
     const id = user._id
@@ -138,7 +150,7 @@ const usercreate = async (req, res) => {
       console.log(newUser);
       await newUser.save();
 
-      req.session.email=loginuser.email
+    //   req.session.email=loginuser.email
       req.session.userprofile=newUser._id
       res.redirect('/userhomepage');
     } catch (error) {
@@ -176,7 +188,7 @@ const usercreate = async (req, res) => {
 
         }
         //set user session
-        req.session.user = loginuser._id
+        req.session.userprofile = loginuser._id
         //check user type
         if(loginuser.userType === 'admin'){
            
@@ -213,9 +225,9 @@ const usercreate = async (req, res) => {
 
 const editprofile =async(req,res)=>{
     console.log();
-    const user = await User.findOne({_id:req.session.user})
+    const user = await User.findOne({_id:req.session.userprofile})
     
-    const userID = user._id
+    const userID = user._id;
     const {name,address,place,phone,}=req.body
 
     await profile.updateOne({userID},

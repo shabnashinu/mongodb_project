@@ -39,7 +39,7 @@ mongoose.connect('mongodb://localhost:27017/sample');
 '/login'
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs') 
 app.use('/', router)
 app.use('/',admin)
 

@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="../styles/productpage.css">
 </head>
 <body>
+    <div class="admin-content" id="adminContent">
+        <!-- Product details will be inserted here dynamically -->
+        <% pd.forEach(function(product) { %>
+            <div class="product-container">
+                <h3><%= product.name %></h3>
+                <p><%= product.description %></p>
+                <p>Price: $<%= product.price %></p>
+                <img src="<%= product.path %>" alt="<%= product.name %>">
+            </div>
+        <% }); %>
+    </div>
     
 </body>
 </html>
